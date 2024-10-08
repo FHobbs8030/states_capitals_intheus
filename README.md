@@ -18,7 +18,7 @@ This is the 3rd project of the Software Engineering program at TripleTen. It was
 
 ## Take a Look at the Project
 
-click [here](https://FHobbs8030.github.io/se_project_aroundtheus/)
+click [here](https://FHobbs8030.github.io/states_capitals_intheus/)
 
 =========================================
 
@@ -41,11 +41,10 @@ click [here](https://github.com/user-attachments/assets/5cfacafb-053e-448f-a66e-
 ========================================================
 
 
-![Screen Shot 2024-10-08 at 12 29 02](https://github.com/user-attachments/assets/66fd82f5-e159-4106-af19-23ffb59eb0da)
+![Screen Shot 2024-10-08 at 12 29 17](https://github.com/user-attachments/assets/59627a5a-d017-47b9-8125-d15d4b98cf83)
 
 
 ========================================================
 
 
-![Screen Shot 2024-10-08 at 12 29 17](https://github.com/user-attachments/assets/59627a5a-d017-47b9-8125-d15d4b98cf83)
-
+![Screen Shot 2024-10-08 at 12 29 02](https://github.com/user-attachments/assets/66fd82f5-e159-4106-af19-23ffb59eb0da)
