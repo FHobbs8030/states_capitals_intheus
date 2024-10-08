@@ -20,13 +20,13 @@ This is the 3rd project of the Software Engineering program at TripleTen. It was
 
 click [here](https://FHobbs8030.github.io/states_capitals_intheus/)
 
-=====================================================================
+====================================================================================================================
 
 ## Watch the Presentation
 
-click [here](https://github.com/user-attachments/assets/5cfacafb-053e-448f-a66e-2a506c7a0679)
+click [here](https://github.com/)
 
-======================================================================
+====================================================================================================================
 
 
 ![Screen Shot 2024-10-08 at 12 26 48](https://github.com/user-attachments/assets/99f250ec-a0e3-42b2-8b6a-05dcdcb90e69)
