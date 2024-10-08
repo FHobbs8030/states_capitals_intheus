@@ -151,6 +151,54 @@
         background-color: #4caf50;
         color: white;
       }
+
+     .station-button {
+    position: relative; /* Set the button's position to relative so lights can be positioned inside it */
+    padding: 15px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 180px;
+  }
+
+  /* Position the red light closer to the center, but at the bottom of the button */
+  .light.red {
+    position: absolute;
+    bottom: 20px; /* Keep the red light at the bottom */
+    left: 30px; /* Bring the red light closer to the center */
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray; /* Default dim state */
+    transition: background-color 0.5s;
+  }
+
+  .light.active.red {
+    background-color: red; /* Lights up red when active */
+  }
+
+  /* Position the green light closer to the center, but at the bottom of the button */
+  .green-light-wrapper {
+    position: absolute;
+    bottom: 20px; /* Keep the green light at the bottom */
+    right: 25px; /* Bring the green light closer to the center */
+ 
+  }
+
+  .light.green {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray; /* Default dim state */
+    transition: background-color 0.5s;
+  }
+
+  .light.active.green {
+    background-color: green; /* Lights up green when active */
+  }
     </style>
   </head>
 
