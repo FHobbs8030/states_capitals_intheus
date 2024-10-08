@@ -435,8 +435,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Loop over each station to create buttons and modals dynamically
   stations.forEach((station, index) => {
+    let lastPopulation = station.initialPopulation; // Track the last population value
+
     // Create button element for each state
     const button = document.createElement("button");
     button.className = "station-button";
@@ -460,71 +461,75 @@ document.addEventListener("DOMContentLoaded", () => {
     dateTimeLabel.id = `dateTime${index}`;
     button.appendChild(dateTimeLabel);
 
-    // Add population display
+    // Create a light container for the red light and population
+    const lightContainer = document.createElement("div");
+    lightContainer.className = "light-container";
+
+    // Create the red light (left, near the population)
+    const redLight = document.createElement("div");
+    redLight.className = "light red";
+    lightContainer.appendChild(redLight);
+
+    // Add population display next to the red light
     const populationLabel = document.createElement("div");
     populationLabel.className = "population";
     populationLabel.innerText = `Population: ${station.initialPopulation.toLocaleString()}`;
-    button.appendChild(populationLabel);
+    lightContainer.appendChild(populationLabel);
 
-    // Add weather display in the upper-right corner
+    // Append the light container with red light and population
+    button.appendChild(lightContainer);
+
+    // Create a green light wrapper to position it on the right
+    const greenLightWrapper = document.createElement("div");
+    greenLightWrapper.className = "green-light-wrapper";
+
+    // Create the green light (right, far right side of the button)
+    const greenLight = document.createElement("div");
+    greenLight.className = "light green";
+    greenLightWrapper.appendChild(greenLight);
+
+    // Append the green light wrapper to the button (far right)
+    button.appendChild(greenLightWrapper);
+
+    // Create weather display in the button (top-right corner or wherever appropriate)
     const weatherInfo = document.createElement("div");
     weatherInfo.className = "weather-info";
     weatherInfo.id = `weather${index}`;
-    weatherInfo.innerText = "Loading...";
+    weatherInfo.innerText = "Loading..."; // Placeholder text until data is fetched
     button.appendChild(weatherInfo);
-
-    // Append the button to the container
-    buttonContainer.appendChild(button);
 
     // Fetch and display weather data for each city
     fetchWeather(station.capital, index);
 
-    // Create modal for each station
-    const modal = document.createElement("div");
-    modal.id = `modal${index}`;
-    modal.className = "modal";
-    modal.innerHTML = `
-            <div class="modal-content">
-              <span class="close" data-index="${index}">&times;</span>
-              <h2>${station.name} - More Info</h2>
-              <p>Population: ${station.initialPopulation.toLocaleString()}</p>
-              <div class="stream-buttons">
-                <button id="mainStreamBtn${index}" class="active" data-index="${index}">Main Stream</button>
-                <button id="countryStreamBtn${index}" data-index="${index}">Country Music Stream</button>
-              </div>
-              <audio id="audioPlayer${index}" controls>
-                <source src="${station.url}" type="audio/mpeg">
-                Your browser does not support the audio element.
-              </audio>
-            </div>
-          `;
-    document.body.appendChild(modal);
-
-    // Event listener to open modal on button click
-    button.addEventListener("click", () => {
-      document.getElementById(`modal${index}`).style.display = "block";
-    });
-
-    // Event listener to close modal
-    document
-      .querySelector(`.close[data-index="${index}"]`)
-      .addEventListener("click", () => {
-        document.getElementById(`modal${index}`).style.display = "none";
-      });
+    // Append the button to the container
+    buttonContainer.appendChild(button);
 
     // Update population every second (simulate real-time growth)
     setInterval(() => {
-      station.initialPopulation +=
-        (station.initialPopulation * station.growthRate) / 31536000; // Growth per second
+      const newPopulation = (station.initialPopulation +=
+        (station.initialPopulation * station.growthRate) / 31536000);
+
       populationLabel.innerText = `Population: ${Math.floor(
-        station.initialPopulation
+        newPopulation
       ).toLocaleString()}`;
+
+      // Compare new population with last population
+      if (newPopulation > lastPopulation) {
+        greenLight.classList.add("active");
+        redLight.classList.remove("active");
+      } else if (newPopulation < lastPopulation) {
+        redLight.classList.add("active");
+        greenLight.classList.remove("active");
+      }
+
+      lastPopulation = newPopulation;
     }, 1000);
 
     // Update time every second
     updateTime(index, station.timeZone);
     setInterval(() => updateTime(index, station.timeZone), 1000);
   });
+
 
   // Event listener to close modals when clicking outside modal content
   window.onclick = function (event) {
