@@ -1,8 +1,9 @@
 # states_capitals_intheus
+
 50 buttons w/States and Capitals / Live radio player with population simulator and live weather data 
 This HTML and JavaScript code creates an interactive webpage displaying a list of U.S. states with live weather data, local time, and population that updates in real time. The page also provides radio stream options for each state.
 
-## Project features
+## Project features:
 
 - Luxon Library: Used for time zone handling to display the local time for each state's capital city.
 
@@ -31,7 +32,7 @@ This HTML and JavaScript code creates an interactive webpage displaying a list o
 
 
 
-## The Plans on improving this project are
+## The Plans on improving this project are:
 
 - Replace the placeholder API key with your OpenWeatherMap API key.
 
