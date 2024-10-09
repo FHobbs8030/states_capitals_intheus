@@ -47,7 +47,8 @@ This HTML and JavaScript code creates an interactive webpage displaying a list o
 
 ## Take a Look at the Project
 
-click [here](https://FHobbs8030.github.io/states_capitals_intheus/)
+
+click [here](https://FHobbs8030.github.io/states_capitals_intheus)
 
 =======================================================================================================================
 
