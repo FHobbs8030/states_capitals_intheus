@@ -415,8 +415,8 @@ document.addEventListener("DOMContentLoaded", () => {
     )}<br>${now.toFormat("hh:mm:ss a")} (${now.offsetNameShort})`;
   }
 
-  // Function to fetch weather data from OpenWeatherMap API
-  async function fetchWeather(city, index) {
+  // Single fetchWeather function
+  async function fetchWeather(city, index, button) {
     try {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`
@@ -425,11 +425,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Get weather info
       const temp = data.main.temp.toFixed(1);
-      const description = data.weather[0].description;
+      const description = data.weather[0].description.toLowerCase();
 
       // Update weather info in the button
       const weatherInfo = document.getElementById(`weather${index}`);
       weatherInfo.innerHTML = `Temp: ${temp}°F<br>${description}`;
+
+      // Adjust button background color based on weather severity
+      if (
+        description.includes("thunderstorm") ||
+        description.includes("rain") ||
+        description.includes("snow")
+      ) {
+        button.style.filter = "brightness(50%)"; // Darken the button for bad weather
+      } else if (description.includes("clouds")) {
+        button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
+      } else if (temp < 32) {
+        // For cold weather
+        button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
+      } else {
+        button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
+      }
     } catch (error) {
       console.error(`Failed to fetch weather data for ${city}:`, error);
     }
@@ -498,11 +514,50 @@ document.addEventListener("DOMContentLoaded", () => {
     weatherInfo.innerText = "Loading..."; // Placeholder text until data is fetched
     button.appendChild(weatherInfo);
 
-    // Fetch and display weather data for each city
-    fetchWeather(station.capital, index);
+    // Fetch and display weather data for each city, and adjust the button color
+    fetchWeather(station.capital, index, button);
 
     // Append the button to the container
     buttonContainer.appendChild(button);
+
+    // Create a modal for each station
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.id = `modal${index}`;
+
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+
+    const closeBtn = document.createElement("span");
+    closeBtn.className = "close";
+    closeBtn.innerHTML = "&times;";
+
+    const modalText = document.createElement("p");
+    modalText.innerText = `Details about ${station.name}`;
+
+    // Append elements to the modal content and modal
+    modalContent.appendChild(closeBtn);
+    modalContent.appendChild(modalText);
+    modal.appendChild(modalContent);
+
+    document.body.appendChild(modal); // Add modal to the document
+
+    // Open modal on button click
+    button.addEventListener("click", () => {
+      modal.style.display = "block";
+    });
+
+    // Close modal when the "x" is clicked
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Close modal when clicking outside the modal content
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
 
     // Update population every second (simulate real-time growth)
     setInterval(() => {
@@ -529,7 +584,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateTime(index, station.timeZone);
     setInterval(() => updateTime(index, station.timeZone), 1000);
   });
-
 
   // Event listener to close modals when clicking outside modal content
   window.onclick = function (event) {
