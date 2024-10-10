@@ -415,42 +415,44 @@ document.addEventListener("DOMContentLoaded", () => {
     )}<br>${now.toFormat("hh:mm:ss a")} (${now.offsetNameShort})`;
   }
 
-  // Single fetchWeather function
-  async function fetchWeather(city, index, button) {
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`
-      );
-      const data = await response.json();
+async function fetchWeather(city, index, button) {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`
+    );
+    const data = await response.json();
 
-      // Get weather info
-      const temp = data.main.temp.toFixed(1);
-      const description = data.weather[0].description.toLowerCase();
+    // Get weather info
+    const temp = data.main.temp.toFixed(1);
+    const description = data.weather[0].description.toLowerCase();
 
-      // Update weather info in the button
-      const weatherInfo = document.getElementById(`weather${index}`);
-      weatherInfo.innerHTML = `Temp: ${temp}°F<br>${description}`;
+    // Update weather info in the button
+    const weatherInfo = document.getElementById(`weather${index}`);
+    weatherInfo.innerHTML = `Temp: ${temp}°F<br>${description}`;
 
-      // Adjust button background color based on weather severity
-      if (
-        description.includes("thunderstorm") ||
-        description.includes("rain") ||
-        description.includes("snow")
-      ) {
-        button.style.filter = "brightness(50%)"; // Darken the button for bad weather
-      } else if (description.includes("clouds")) {
-        button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
-      } else if (temp < 32) {
-        // For cold weather
-        button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
-      } else {
-        button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
-      }
-    } catch (error) {
-      console.error(`Failed to fetch weather data for ${city}:`, error);
+    // Adjust button background color based on weather severity
+    if (
+      description.includes("thunderstorm") ||
+      description.includes("rain") ||
+      description.includes("drizzle") || // Added 'drizzle' as a condition
+      description.includes("snow")
+    ) {
+      button.style.filter = "brightness(50%)"; // Darken the button for bad weather
+    } else if (description.includes("clouds")) {
+      button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
+    } else if (temp < 32) {
+      // For cold weather
+      button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
+    } else {
+      button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
     }
+  } catch (error) {
+    console.error(`Failed to fetch weather data for ${city}:`, error);
   }
+}
 
+
+  // Iterate through each station to create buttons and logic
   stations.forEach((station, index) => {
     let lastPopulation = station.initialPopulation; // Track the last population value
 
@@ -491,6 +493,18 @@ document.addEventListener("DOMContentLoaded", () => {
     populationLabel.className = "population";
     populationLabel.innerText = `Population: ${station.initialPopulation.toLocaleString()}`;
     lightContainer.appendChild(populationLabel);
+
+    // Add sounds when clicking or hovering
+    const hoverSound = new Audio("hover-sound.mp3"); // Replace with actual sound URL
+    const clickSound = new Audio("click-sound.mp3"); // Replace with actual sound URL
+
+    button.addEventListener("mouseenter", () => {
+      hoverSound.play(); // Play sound when hovering
+    });
+
+    button.addEventListener("click", () => {
+      clickSound.play(); // Play sound when clicked
+    });
 
     // Append the light container with red light and population
     button.appendChild(lightContainer);
@@ -552,17 +566,10 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.style.display = "none";
     });
 
-    // Close modal when clicking outside the modal content
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-
-    // Update population every second (simulate real-time growth)
+    // Throttled population update (every 10 seconds)
     setInterval(() => {
       const newPopulation = (station.initialPopulation +=
-        (station.initialPopulation * station.growthRate) / 31536000);
+        (station.initialPopulation * station.growthRate) / 3153600); // Adjusted to update every 10 seconds
 
       populationLabel.innerText = `Population: ${Math.floor(
         newPopulation
@@ -578,7 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       lastPopulation = newPopulation;
-    }, 1000);
+    }, 10000); // Throttled to update every 10 seconds
 
     // Update time every second
     updateTime(index, station.timeZone);
