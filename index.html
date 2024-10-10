@@ -47,10 +47,9 @@
         box-sizing: border-box;
       }
 
-      /* CSS for hover effects */
       .station-button:hover {
-        transform: scale(1.05); /* Scale the button slightly when hovered */
-        background-color: #333; /* Darken the background on hover */
+        transform: scale(1.05); 
+        background-color: #333; 
       }
 
       .station-name {
@@ -211,6 +210,8 @@
     <h1>Live Radio Stream Player with Population and Weather Data</h1>
     <div class="button-container" id="buttonContainer"></div>
 
-    <script src="./scripts/index.js"></script>
+    <!-- Include the index.js script as a module -->
+    <script type="module" src="./scripts/index.js" defer></script>
+
   </body>
 </html>

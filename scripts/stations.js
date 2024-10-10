@@ -7,6 +7,7 @@ export const stations = [
     initialPopulation: 5024279,
     growthRate: 0.01,
   },
+
   {
     name: "Alaska",
     capital: "Juneau",
@@ -15,6 +16,7 @@ export const stations = [
     initialPopulation: 733391,
     growthRate: 0.005,
   },
+
   {
     name: "Arizona",
     capital: "Phoenix",
@@ -23,6 +25,7 @@ export const stations = [
     initialPopulation: 7151502,
     growthRate: 0.02,
   },
+
   {
     name: "Arkansas",
     capital: "Little Rock",
@@ -31,6 +34,7 @@ export const stations = [
     initialPopulation: 3011524,
     growthRate: 0.008,
   },
+
   {
     name: "California",
     capital: "Sacramento",
@@ -39,6 +43,7 @@ export const stations = [
     initialPopulation: 39538223,
     growthRate: 0.01,
   },
+
   {
     name: "Colorado",
     capital: "Denver",
@@ -47,6 +52,7 @@ export const stations = [
     initialPopulation: 5773714,
     growthRate: 0.015,
   },
+
   {
     name: "Connecticut",
     capital: "Hartford",
@@ -55,6 +61,7 @@ export const stations = [
     initialPopulation: 3605944,
     growthRate: 0.003,
   },
+
   {
     name: "Delaware",
     capital: "Dover",
@@ -63,6 +70,7 @@ export const stations = [
     initialPopulation: 989948,
     growthRate: 0.007,
   },
+
   {
     name: "Florida",
     capital: "Tallahassee",
@@ -71,6 +79,7 @@ export const stations = [
     initialPopulation: 21538187,
     growthRate: 0.015,
   },
+
   {
     name: "Georgia",
     capital: "Atlanta",
@@ -79,6 +88,7 @@ export const stations = [
     initialPopulation: 10711908,
     growthRate: 0.013,
   },
+
   {
     name: "Hawaii",
     capital: "Honolulu",
@@ -87,6 +97,7 @@ export const stations = [
     initialPopulation: 1455271,
     growthRate: 0.004,
   },
+
   {
     name: "Idaho",
     capital: "Boise",
@@ -95,6 +106,7 @@ export const stations = [
     initialPopulation: 1839106,
     growthRate: 0.02,
   },
+
   {
     name: "Illinois",
     capital: "Springfield",
@@ -103,6 +115,7 @@ export const stations = [
     initialPopulation: 12812508,
     growthRate: 0.001,
   },
+
   {
     name: "Indiana",
     capital: "Indianapolis",
@@ -111,6 +124,7 @@ export const stations = [
     initialPopulation: 6785528,
     growthRate: 0.007,
   },
+
   {
     name: "Iowa",
     capital: "Des Moines",
@@ -119,6 +133,7 @@ export const stations = [
     initialPopulation: 3190369,
     growthRate: 0.005,
   },
+
   {
     name: "Kansas",
     capital: "Topeka",
@@ -127,6 +142,7 @@ export const stations = [
     initialPopulation: 2937880,
     growthRate: 0.004,
   },
+
   {
     name: "Kentucky",
     capital: "Frankfort",
@@ -135,6 +151,7 @@ export const stations = [
     initialPopulation: 4505836,
     growthRate: 0.006,
   },
+
   {
     name: "Louisiana",
     capital: "Baton Rouge",
@@ -143,6 +160,7 @@ export const stations = [
     initialPopulation: 4657757,
     growthRate: 0.004,
   },
+
   {
     name: "Maine",
     capital: "Augusta",
@@ -151,6 +169,7 @@ export const stations = [
     initialPopulation: 1362359,
     growthRate: 0.002,
   },
+
   {
     name: "Maryland",
     capital: "Annapolis",
@@ -159,6 +178,7 @@ export const stations = [
     initialPopulation: 6177224,
     growthRate: 0.008,
   },
+
   {
     name: "Massachusetts",
     capital: "Boston",
@@ -167,6 +187,7 @@ export const stations = [
     initialPopulation: 7029917,
     growthRate: 0.007,
   },
+
   {
     name: "Michigan",
     capital: "Lansing",
@@ -175,6 +196,7 @@ export const stations = [
     initialPopulation: 10077331,
     growthRate: 0.003,
   },
+
   {
     name: "Minnesota",
     capital: "Saint Paul",
@@ -183,6 +205,7 @@ export const stations = [
     initialPopulation: 5706494,
     growthRate: 0.008,
   },
+
   {
     name: "Mississippi",
     capital: "Jackson",
@@ -191,6 +214,7 @@ export const stations = [
     initialPopulation: 2961279,
     growthRate: 0.003,
   },
+
   {
     name: "Missouri",
     capital: "Jefferson City",
@@ -199,6 +223,7 @@ export const stations = [
     initialPopulation: 6154913,
     growthRate: 0.006,
   },
+
   {
     name: "Montana",
     capital: "Helena",
@@ -207,6 +232,7 @@ export const stations = [
     initialPopulation: 1084225,
     growthRate: 0.01,
   },
+
   {
     name: "Nebraska",
     capital: "Lincoln",
@@ -215,6 +241,7 @@ export const stations = [
     initialPopulation: 1961504,
     growthRate: 0.008,
   },
+
   {
     name: "Nevada",
     capital: "Carson City",
@@ -223,6 +250,7 @@ export const stations = [
     initialPopulation: 3104614,
     growthRate: 0.018,
   },
+
   {
     name: "New Hampshire",
     capital: "Concord",
@@ -231,6 +259,7 @@ export const stations = [
     initialPopulation: 1377529,
     growthRate: 0.005,
   },
+
   {
     name: "New Jersey",
     capital: "Trenton",
@@ -239,6 +268,7 @@ export const stations = [
     initialPopulation: 9288994,
     growthRate: 0.004,
   },
+
   {
     name: "New Mexico",
     capital: "Santa Fe",
@@ -247,6 +277,7 @@ export const stations = [
     initialPopulation: 2117522,
     growthRate: 0.006,
   },
+
   {
     name: "New York",
     capital: "Albany",
@@ -255,6 +286,7 @@ export const stations = [
     initialPopulation: 20201249,
     growthRate: 0.003,
   },
+
   {
     name: "North Carolina",
     capital: "Raleigh",
@@ -263,6 +295,7 @@ export const stations = [
     initialPopulation: 10439388,
     growthRate: 0.013,
   },
+
   {
     name: "North Dakota",
     capital: "Bismarck",
@@ -271,6 +304,7 @@ export const stations = [
     initialPopulation: 779094,
     growthRate: 0.01,
   },
+
   {
     name: "Ohio",
     capital: "Columbus",
@@ -279,6 +313,7 @@ export const stations = [
     initialPopulation: 11799448,
     growthRate: 0.004,
   },
+
   {
     name: "Oklahoma",
     capital: "Oklahoma City",
@@ -287,6 +322,7 @@ export const stations = [
     initialPopulation: 3959353,
     growthRate: 0.009,
   },
+
   {
     name: "Oregon",
     capital: "Salem",
@@ -295,6 +331,7 @@ export const stations = [
     initialPopulation: 4237256,
     growthRate: 0.012,
   },
+
   {
     name: "Pennsylvania",
     capital: "Harrisburg",
@@ -303,6 +340,7 @@ export const stations = [
     initialPopulation: 13002700,
     growthRate: 0.003,
   },
+
   {
     name: "Rhode Island",
     capital: "Providence",
@@ -311,6 +349,7 @@ export const stations = [
     initialPopulation: 1097379,
     growthRate: 0.002,
   },
+
   {
     name: "South Carolina",
     capital: "Columbia",
@@ -319,6 +358,7 @@ export const stations = [
     initialPopulation: 5118425,
     growthRate: 0.012,
   },
+
   {
     name: "South Dakota",
     capital: "Pierre",
@@ -327,6 +367,7 @@ export const stations = [
     initialPopulation: 886667,
     growthRate: 0.01,
   },
+
   {
     name: "Tennessee",
     capital: "Nashville",
@@ -335,6 +376,7 @@ export const stations = [
     initialPopulation: 6916897,
     growthRate: 0.013,
   },
+
   {
     name: "Texas",
     capital: "Austin",
@@ -343,6 +385,7 @@ export const stations = [
     initialPopulation: 29145505,
     growthRate: 0.02,
   },
+
   {
     name: "Utah",
     capital: "Salt Lake City",
@@ -351,6 +394,7 @@ export const stations = [
     initialPopulation: 3271616,
     growthRate: 0.02,
   },
+
   {
     name: "Vermont",
     capital: "Montpelier",
@@ -359,6 +403,7 @@ export const stations = [
     initialPopulation: 643077,
     growthRate: 0.002,
   },
+
   {
     name: "Virginia",
     capital: "Richmond",
@@ -367,6 +412,7 @@ export const stations = [
     initialPopulation: 8631393,
     growthRate: 0.01,
   },
+
   {
     name: "Washington",
     capital: "Olympia",
@@ -375,6 +421,7 @@ export const stations = [
     initialPopulation: 7693612,
     growthRate: 0.015,
   },
+
   {
     name: "West Virginia",
     capital: "Charleston",
@@ -383,6 +430,7 @@ export const stations = [
     initialPopulation: 1793716,
     growthRate: 0.002,
   },
+
   {
     name: "Wisconsin",
     capital: "Madison",
@@ -391,6 +439,7 @@ export const stations = [
     initialPopulation: 5893718,
     growthRate: 0.005,
   },
+
   {
     name: "Wyoming",
     capital: "Cheyenne",
@@ -400,3 +449,4 @@ export const stations = [
     growthRate: 0.006,
   },
 ];
+console.log("Stations array loaded correctly");
