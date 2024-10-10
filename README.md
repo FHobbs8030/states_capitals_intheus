@@ -34,8 +34,6 @@ This HTML and JavaScript code creates an interactive webpage displaying a list o
 
 ## The Plans on improving this project are:
 
-- Replace the placeholder API key with your OpenWeatherMap API key.
-
 - Audio Stream URLs: Provide actual URLs for the radio streams, which are missing in the current code.
 
 - This setup creates a responsive and interactive UI, great for showcasing live data and radio streams for different 
@@ -46,6 +44,7 @@ This HTML and JavaScript code creates an interactive webpage displaying a list o
 =======================================================================================================================
 
 ## Take a Look at the Project
+
 
 click [here](https://FHobbs8030.github.io/states_capitals_intheus/)
 
