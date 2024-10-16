@@ -7,6 +7,7 @@ npm-debug.log*
 node_modules/
 vendor/
 
+
 # OS generated files
 .DS_Store
 Thumbs.db
@@ -22,3 +23,9 @@ build/
 .vscode/
 .idea/
 
+Python/
+elvis_aroundtheus/
+network_tools_dashboard/
+scanner/
+se_project_aroundtheus/
+se_project_aroundtheus.zip
