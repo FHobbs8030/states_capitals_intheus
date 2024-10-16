@@ -1,7 +1,7 @@
-/Cochise/
-/Python/
-/elvis_aroundtheus/
-/network_tools_dashboard/
-/scanner/
-/se_project_aroundtheus.zip
-/se_project_aroundtheus/
+echo "Cochise/" >> .gitignore
+echo "Python/" >> .gitignore
+echo "elvis_aroundtheus/" >> .gitignore
+echo "network_tools_dashboard/" >> .gitignore
+echo "scanner/" >> .gitignore
+echo "se_project_aroundtheus.zip" >> .gitignore
+echo "se_project_aroundtheus/" >> .gitignore
