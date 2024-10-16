@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./blocks/modals.css" />
+
+
     <title>Live Radio Stream Player with Population and Weather Data</title>
 
     <!-- Include Luxon library for time zone handling -->
@@ -110,42 +113,6 @@
         box-sizing: border-box;
       }
 
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-      }
-
-      .modal-content {
-        background-color: white;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        position: relative;
-      }
-
-      .close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        color: black;
-        font-size: 25px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      .close:hover,
-      .close:focus {
-        color: red;
-        cursor: pointer;
-      }
-
       .stream-buttons button {
         padding: 10px 15px;
         margin: 5px;
@@ -211,6 +178,6 @@
     <h1>Live Radio Stream Player with Population and Weather Data</h1>
     <div class="button-container" id="buttonContainer"></div>
 
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js" defer></script>
   </body>
 </html>

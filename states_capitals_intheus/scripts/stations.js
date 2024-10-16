@@ -1,3 +1,4 @@
+// stations.js
 export const stations = [
   {
     name: "Alabama",
@@ -22,6 +23,7 @@ export const stations = [
     color: "#3357FF",
     initialPopulation: 7151502,
     growthRate: 0.02,
+    streamUrl: "https://radiostationusa.fm/online/kjzz",
   },
   {
     name: "Arkansas",
@@ -30,6 +32,7 @@ export const stations = [
     color: "#FF33A6",
     initialPopulation: 3011524,
     growthRate: 0.008,
+    streamUrl: "https://streema.com/radios/KUAR_K205AA",
   },
   {
     name: "California",
