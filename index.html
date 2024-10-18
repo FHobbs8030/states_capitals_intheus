@@ -3,207 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./blocks/global.css" />
+    <link rel="stylesheet" href="./blocks/buttons.css" />
+    <link rel="stylesheet" href="./blocks/lights.css" />
+    <link rel="stylesheet" href="./blocks/modal.css" />
+    <link rel="stylesheet" href="./blocks/audio.css" />
+
     <title>Live Radio Stream Player with Population and Weather Data</title>
 
     <!-- Include Luxon library for time zone handling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.4/luxon.min.js"></script>
-
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        background-color: black;
-      }
-
-      h1 {
-        text-align: center;
-        color: white;
-      }
-
-      .button-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .station-button {
-        margin: 10px;
-        padding: 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-        font-size: 16px;
-        text-align: center;
-        width: 200px;
-        height: 180px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s;
-        background-color: black;
-        box-sizing: border-box;
-      }
-
-      .station-button:hover {
-        transform: scale(1.05); 
-        background-color: #333; 
-      }
-
-      .station-name {
-        font-size: 22px;
-        background-color: black;
-        color: white;
-        padding: 3px 6px;
-        margin-bottom: 2px;
-        margin-top: 30px;
-        box-sizing: border-box;
-      }
-
-      .capital {
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        background-color: black;
-        padding: 0px 5px;
-        margin: 2px 0 0 0;
-        box-sizing: border-box;
-      }
-
-      .date-time {
-        font-size: 16px;
-        font-weight: bold;
-        background-color: black;
-        color: white;
-        padding: 3px 3px;
-        display: inline-block;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        box-sizing: border-box;
-      }
-
-      .population {
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        background-color: black;
-        padding: 3px 3px;
-        margin-top: 4px;
-        box-sizing: border-box;
-      }
-
-      .weather-info {
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        font-size: 12px;
-        color: white;
-        background-color: black;
-        padding: 2px 2px;
-        text-align: right;
-        box-sizing: border-box;
-      }
-
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-      }
-
-      .modal-content {
-        background-color: white;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        position: relative;
-      }
-
-      .close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        color: black;
-        font-size: 25px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      .close:hover,
-      .close:focus {
-        color: red;
-        cursor: pointer;
-      }
-
-      .stream-buttons button {
-        padding: 10px 15px;
-        margin: 5px;
-        font-size: 14px;
-        cursor: pointer;
-      }
-
-      .stream-buttons button.active {
-        background-color: #4caf50;
-        color: white;
-      }
-
-      .station-button {
-        position: relative; /* Set the button's position to relative so lights can be positioned inside it */
-        padding: 15px;
-        background-color: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        width: 200px;
-        height: 180px;
-      }
-
-      /* Position the red light closer to the center, but at the bottom of the button */
-      .light.red {
-        position: absolute;
-        bottom: 20px; /* Keep the red light at the bottom */
-        left: 30px; /* Bring the red light closer to the center */
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: gray; /* Default dim state */
-        transition: background-color 0.5s;
-      }
-
-      .light.active.red {
-        background-color: red; /* Lights up red when active */
-      }
-
-      /* Position the green light closer to the center, but at the bottom of the button */
-      .green-light-wrapper {
-        position: absolute;
-        bottom: 20px; /* Keep the green light at the bottom */
-        right: 25px; /* Bring the green light closer to the center */
-      }
-
-      .light.green {
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: gray; /* Default dim state */
-        transition: background-color 0.5s;
-      }
-
-      .light.active.green {
-        background-color: green; /* Lights up green when active */
-      }
-    </style>
   </head>
 
   <body>
@@ -212,6 +21,5 @@
 
     <!-- Include the index.js script as a module -->
     <script type="module" src="./scripts/index.js" defer></script>
-
   </body>
 </html>
