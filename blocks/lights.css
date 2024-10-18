@@ -1,0 +1,33 @@
+/* Light containers */
+.light.red {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: gray;
+  transition: background-color 0.5s;
+}
+
+.light.active.red {
+  background-color: red;
+}
+
+.green-light-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+}
+
+.light.green {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: gray;
+  transition: background-color 0.5s;
+}
+
+.light.active.green {
+  background-color: green;
+}
