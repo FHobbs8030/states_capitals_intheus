@@ -3,10 +3,6 @@ logs/
 *.log
 npm-debug.log*
 
-# Dependency directories
-node_modules/
-vendor/
-
 # OS generated files
 .DS_Store
 Thumbs.db
@@ -17,8 +13,3 @@ Thumbs.db
 # Build output
 dist/
 build/
-
-# IDE/Editor settings
-.vscode/
-.idea/
-
