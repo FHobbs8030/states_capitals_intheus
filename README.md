@@ -40,12 +40,6 @@ An interactive webpage featuring U.S. states with buttons that display live weat
 
 ---
 
-## Watch the Presentation
-
-[Click here](https://github.com/) to watch the presentation.
-
----
-
 ## Screenshots
 
 ### Example of the State Selection Interface
