@@ -2,7 +2,7 @@ import { stations } from "./stations.js";
 console.log(stations);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const API_KEY = "a3e93ebcbeac87320f146f1fe859bf60"; // Replace this with your OpenWeatherMap API key
+  const API_KEY = "bc57c86f4780bd0a66fb3db181b3f031"; // Replace this with your OpenWeatherMap API key
   const buttonContainer = document.getElementById("buttonContainer");
 
   console.log(stations); // Check if stations are imported correctly
