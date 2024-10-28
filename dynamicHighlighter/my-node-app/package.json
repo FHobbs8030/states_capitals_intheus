@@ -1,52 +1,39 @@
-
 {
   "name": "dynamic-highlighter",
-  "displayName": "Dynamic Highlighter",
-  "description": "A VSCode extension for dynamically highlighting variables, functions, and titles in JavaScript files.",
   "version": "1.0.0",
-  "publisher": "your-name-or-publisher-id",
-  "engines": {
-    "vscode": "^1.78.0"
+  "description": "VS Code extension for dynamic highlighting",
+  "main": "out/extension.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "vscode:prepublish": "npm run compile"
   },
-  "categories": [
-    "Programming Languages",
-    "Other"
-  ],
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vscode": "^1.1.37"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
   "activationEvents": [
-    "onLanguage:javascript"
+    "*"
   ],
-  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "dynamic-highlighter.start",
-        "title": "Start Dynamic Highlighter"
+        "command": "extension.sayHello",
+        "title": "Hello World"
       }
-    ],
-    "semanticTokenScopes": {
-      "javascript": [
-        {
-          "legend": {
-            "tokenTypes": ["variable", "function", "titleRelated"],
-            "tokenModifiers": []
-          },
-          "range": "document"
-        }
-      ]
-    }
+    ]
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "lint": "eslint . --ext .ts,.js",
-    "test": "node ./out/test/runTest.js"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FHobbs8030/dynamicHighlighter.git"
   },
-  "devDependencies": {
-    "@types/node": "^16.x",
-    "@types/vscode": "^1.78.0",
-    "typescript": "^4.9.4",
-    "eslint": "^8.7.0",
-    "vsce": "^2.10.0"
-  },
-  "dependencies": {}
+  "keywords": [
+    "VSCode",
+    "extension",
+    "highlighting"
+  ],
+  "author": "Fred Hobbs",
+  "license": "ISC"
 }
