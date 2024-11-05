@@ -1,61 +1,89 @@
 import { stations } from "./stations.js";
-console.log(stations);
+console.log(`Stations array loaded correctly`, stations); // Debugging step to verify if all stations are loaded
 
 document.addEventListener("DOMContentLoaded", () => {
-  const API_KEY = "bc57c86f4780bd0a66fb3db181b3f031"; // Replace this with your OpenWeatherMap API key
+  const API_KEY = "bc57c86f4780bd0a66fb3db181b3f031"; // Replace this with your actual OpenWeatherMap API key
   const buttonContainer = document.getElementById("buttonContainer");
+  const activateSoundsButton = document.getElementById("activateSounds");
 
-  console.log(stations); // Check if stations are imported correctly
+  let soundsActivated = false;
 
-  // Function to update the time based on the time zone
-  function updateTime(index, timeZone) {
-    const now = luxon.DateTime.now().setZone(timeZone || "UTC");
-    const dateTimeLabel = document.getElementById(`dateTime${index}`);
-    dateTimeLabel.innerHTML = `${now.toFormat(
-      "EEE, MMM dd, yyyy"
-    )}<br>${now.toFormat("hh:mm:ss a")} (${now.offsetNameShort})`;
-  }
+  // Add click event listener to activate sounds button
+  activateSoundsButton.addEventListener("click", () => {
+    soundsActivated = true;
 
-  // Function to fetch weather data for a given city
-  async function fetchWeather(city, index, button) {
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`
-      );
-      const data = await response.json();
+    // Play each sound muted to get browser permission
+    const hoverSound = new Audio("audio/A.mp3");
+    const clickSound = new Audio("audio/B.mp3");
 
-      // Get weather info
-      const temp = data.main.temp.toFixed(1);
-      const description = data.weather[0].description.toLowerCase();
+    hoverSound.volume = 0;
+    clickSound.volume = 0;
 
-      // Update weather info in the button
-      const weatherInfo = document.getElementById(`weather${index}`);
-      weatherInfo.innerHTML = `Temp: ${temp}°F<br>${description}`;
+    hoverSound.play().catch((error) => {
+      console.log("Muted hover sound playback prevented:", error);
+    });
 
-      // Adjust button background color based on weather severity
-      if (
-        description.includes("thunderstorm") ||
-        description.includes("rain") ||
-        description.includes("drizzle") ||
-        description.includes("snow")
-      ) {
-        button.style.filter = "brightness(50%)"; // Darken the button for bad weather
-      } else if (description.includes("clouds")) {
-        button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
-      } else if (temp < 32) {
-        // For cold weather
-        button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
-      } else {
-        button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
-      }
-    } catch (error) {
-      console.error(`Failed to fetch weather data for ${city}:`, error);
-    }
+    clickSound.play().catch((error) => {
+      console.log("Muted click sound playback prevented:", error);
+    });
+
+    // Hide the activation button after it's clicked
+    activateSoundsButton.style.display = "none";
+  });
+
+  // Create hover and click sound elements (shared across all buttons)
+  const hoverSound = new Audio("audio/A.mp3");
+  const clickSound = new Audio("audio/B.mp3");
+  hoverSound.volume = 0.5;
+  clickSound.volume = 0.5;
+
+  // Define the fetchWeather function with icons and color-coded backgrounds
+  function fetchWeather(city, index, button) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`;
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const weatherInfo = document.getElementById(`weather${index}`);
+        const temp = data.main.temp.toFixed(1);
+        const description = data.weather[0].description.toLowerCase();
+        const iconCode = data.weather[0].icon; // Get the weather icon code
+        const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+        // Update weather info in the button with icon and temperature
+        weatherInfo.innerHTML = `
+          <img src="${iconUrl}" alt="${description}" class="weather-icon">
+          Temp: ${temp}°F<br>${description}
+        `;
+
+        // Adjust button background color based on weather conditions
+        if (
+          description.includes("thunderstorm") ||
+          description.includes("rain") ||
+          description.includes("snow")
+        ) {
+          button.style.filter = "brightness(50%)"; // Darken the button for bad weather
+        } else if (description.includes("clouds")) {
+          button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
+        } else if (temp < 32) {
+          button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
+        } else {
+          button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
+        }
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch weather data for ${city}:`, error);
+      });
   }
 
   // Iterate through each station to create buttons and logic
   stations.forEach((station, index) => {
-    let lastPopulation = station.initialPopulation; // Track the last population value
+    console.log(`Processing station: ${station.name}`); // Debug to see if all stations are processed
 
     // Create button element for each state
     const button = document.createElement("button");
@@ -95,36 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     populationLabel.innerText = `Population: ${station.initialPopulation.toLocaleString()}`;
     lightContainer.appendChild(populationLabel);
 
-    // Add sounds when clicking or hovering
-    const hoverSound = new Audio("audio/A.mp3"); // Correct path to the hover sound
-    const clickSound = new Audio("audio/B.mp3"); // Correct path to the click sound
-
-    // Set volume levels for each sound
-    hoverSound.volume = 0.1;
-    clickSound.volume = 0.1;
-
-    // Play hover sound when mouse enters the button
-    button.addEventListener("mouseenter", () => {
-      hoverSound.currentTime = 0; // Reset to the beginning
-      hoverSound.play().catch((error) => {
-        console.log("Hover sound autoplay prevented:", error);
-      });
-    });
-
-    // Stop hover sound when mouse leaves the button
-    button.addEventListener("mouseleave", () => {
-      hoverSound.pause(); // Stop playing
-      hoverSound.currentTime = 0; // Reset for next hover
-    });
-
-    // Play click sound when button is clicked
-    button.addEventListener("click", () => {
-      clickSound.currentTime = 0; // Reset to the beginning
-      clickSound.play().catch((error) => {
-        console.log("Click sound autoplay prevented:", error);
-      });
-    });
-
     // Append the light container with red light and population
     button.appendChild(lightContainer);
 
@@ -150,84 +148,33 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fetch and display weather data for each city, and adjust the button color
     fetchWeather(station.capital, index, button);
 
+    // Add sounds when clicking or hovering (using shared sounds)
+    button.addEventListener("mouseenter", () => {
+      if (soundsActivated) {
+        hoverSound.currentTime = 0; // Reset to the beginning
+        hoverSound.play().catch((error) => {
+          console.log("Hover sound autoplay prevented:", error);
+        });
+      }
+    });
+
+    button.addEventListener("mouseleave", () => {
+      if (soundsActivated && !hoverSound.paused) {
+        hoverSound.pause(); // Stop playing
+        hoverSound.currentTime = 0; // Reset for next hover
+      }
+    });
+
+    button.addEventListener("click", () => {
+      if (soundsActivated) {
+        clickSound.currentTime = 0; // Reset to the beginning
+        clickSound.play().catch((error) => {
+          console.log("Click sound autoplay prevented:", error);
+        });
+      }
+    });
+
     // Append the button to the container
     buttonContainer.appendChild(button);
-
-    // Create a modal for each station
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    modal.id = `modal${index}`;
-
-    const modalContent = document.createElement("div");
-    modalContent.className = "modal-content";
-
-    // Add the capital city label inside the modal (top-left corner)
-    const modalCapitalLabel = document.createElement("div");
-    modalCapitalLabel.className = "capital-modal"; // CSS class for styling
-    modalCapitalLabel.innerText = station.capital;
-    modalContent.appendChild(modalCapitalLabel);
-
-    const closeBtn = document.createElement("span");
-    closeBtn.className = "close";
-    closeBtn.innerHTML = "&times;";
-
-    // Add the dynamic welcome message
-    const modalText = document.createElement("p");
-    modalText.innerText = `Welcome to ${station.capital}, the capital city of ${station.name}! Enjoy exploring the state's information including current population and weather.`;
-
-    // Set the modal background color to match the state button color
-    modalContent.style.backgroundColor = station.color;
-
-    // Append elements to the modal content and modal
-    modalContent.appendChild(closeBtn);
-    modalContent.appendChild(modalText);
-    modal.appendChild(modalContent);
-
-    document.body.appendChild(modal); // Add modal to the document
-
-    // Open modal on button click
-    button.addEventListener("click", () => {
-      modal.style.display = "block";
-    });
-
-    // Close modal when the "x" is clicked
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    // Throttled population update (every 10 seconds)
-    setInterval(() => {
-      const newPopulation = (station.initialPopulation +=
-        (station.initialPopulation * station.growthRate) / 3153600); // Adjusted to update every 10 seconds
-
-      populationLabel.innerText = `Population: ${Math.floor(
-        newPopulation
-      ).toLocaleString()}`;
-
-      // Compare new population with last population
-      if (newPopulation > lastPopulation) {
-        greenLight.classList.add("active");
-        redLight.classList.remove("active");
-      } else if (newPopulation < lastPopulation) {
-        redLight.classList.add("active");
-        greenLight.classList.remove("active");
-      }
-
-      lastPopulation = newPopulation;
-    }, 10000); // Throttled to update every 10 seconds
-
-    // Update time every second
-    updateTime(index, station.timeZone);
-    setInterval(() => updateTime(index, station.timeZone), 1000);
   });
-
-  // Event listener to close modals when clicking outside modal content
-  window.onclick = function (event) {
-    const openModals = document.querySelectorAll(".modal");
-    openModals.forEach((modal) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  };
 });
