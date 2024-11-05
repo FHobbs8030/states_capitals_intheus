@@ -1,0 +1,226 @@
+/* General styling for body */
+body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Styling for header */
+h1 {
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px; /* Make buttons larger with smaller gap between */
+}
+
+/* Styling for activate/deactivate sounds button */
+#activateSounds, #deactivateSounds {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.station-button {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: var(--button-bg-color);
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+
+.station-button:hover {
+  transform: scale(1.05);
+}
+
+/* Capital information styling */
+.capital {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: black;
+  color: white;
+  padding: 3px 5px;
+  font-size: 0.9em;
+  border-radius: 3px;
+  z-index: 1;
+}
+
+.weather-container {
+  position: absolute;
+  bottom: 40px; /* Adjust this to control how far above the population the weather should be */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  padding: 5px 12px; /* Increased width padding to make it appear wider */
+  font-size: 0.9em; /* Adjust font size if needed */
+  border-radius: 3px;
+  z-index: 1;
+  width: 140px; /* Make it wider */
+  height: 40px; /* Make it shorter */
+}
+
+.weather-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 80%; /* Increase width */
+  height: 40px; /* Shorten height */
+}
+
+.weather-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+/* Weather information styling */
+.weather-info {
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 3px 5px;
+  font-size: 0.8em;
+  border-radius: 3px;
+  z-index: 1;
+}
+
+.population {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: black;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+}
+
+.station-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+}
+
+.modal {
+  width: 80vw; /* Wider than the buttons */
+  height: 80vh; /* Tall to fit the data */
+  background-color: var(--button-bg-color);
+  padding: 20px;
+  color: white;
+}
+
+
+.modal-content {
+  background-color: #333;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 800px;
+  color: white;
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Button to deactivate sounds */
+#deactivateSounds {
+  background-color: #f44336;
+} 
+
+/* Light containers */
+.light.red {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: gray;
+  transition: background-color 0.5s;
+}
+
+.light.active.red {
+  background-color: red;
+}
+
+.green-light-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+}
+
+.light.green {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: gray;
+  transition: background-color 0.5s;
+}
+
+.light.active.green {
+  background-color: green;
+}
+
+/* Audio hover and click styles */
+.station-button:hover .audio {
+  opacity: 1;
+}
+
+.station-button .audio {
+  opacity: 0;
+  transition: opacity 0.3s;
+}

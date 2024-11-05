@@ -1,9 +1,0 @@
-/* Audio hover and click styles */
-.station-button:hover .audio {
-  opacity: 1;
-}
-
-.station-button .audio {
-  opacity: 0;
-  transition: opacity 0.3s;
-}

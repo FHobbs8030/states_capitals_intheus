@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   hoverSound.volume = 0.5;
   clickSound.volume = 0.5;
 
-  // Define the fetchWeather function with icons and color-coded backgrounds
+  // Define the fetchWeather function
   function fetchWeather(city, index, button) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`;
 
@@ -50,16 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         const weatherInfo = document.getElementById(`weather${index}`);
+        const weatherIcon = document.getElementById(`weatherIcon${index}`);
         const temp = data.main.temp.toFixed(1);
         const description = data.weather[0].description.toLowerCase();
-        const iconCode = data.weather[0].icon; // Get the weather icon code
-        const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        const iconCode = data.weather[0].icon;
 
-        // Update weather info in the button with icon and temperature
-        weatherInfo.innerHTML = `
-          <img src="${iconUrl}" alt="${description}" class="weather-icon">
-          Temp: ${temp}°F<br>${description}
-        `;
+        // Update weather info in the button
+        weatherInfo.innerHTML = `Temp: ${temp}°F<br>${description}`;
+        weatherIcon.src = `http://openweathermap.org/img/wn/${iconCode}.png`;
 
         // Adjust button background color based on weather conditions
         if (
@@ -79,6 +77,57 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => {
         console.error(`Failed to fetch weather data for ${city}:`, error);
       });
+  }
+
+  // Function to update the time in each station button
+  function updateTime(index, timeZone) {
+    const date = new Date();
+    const options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZone: timeZone,
+      timeZoneName: "short",
+    };
+    const formattedTime = date.toLocaleTimeString("en-US", options);
+    const dateTimeLabel = document.getElementById(`dateTime${index}`);
+    if (dateTimeLabel) {
+      dateTimeLabel.innerText = formattedTime;
+    }
+  }
+
+  // Function to update population and toggle lights
+  function updatePopulation(station, index) {
+    const populationLabel = document.querySelector(
+      `#dateTime${index} .population`
+    );
+    const redLight = document.querySelector(`#dateTime${index} .red`);
+    const greenLight = document.querySelector(`#dateTime${index} .green`);
+
+    if (!populationLabel || !redLight || !greenLight) {
+      console.error("Unable to find elements for population update");
+      return;
+    }
+
+    // Update population logic (e.g., simulate population growth)
+    const newPopulation = Math.floor(
+      station.initialPopulation * (1 + station.growthRate / 100)
+    );
+
+    // Update the label with the new population
+    populationLabel.innerText = `Population: ${newPopulation.toLocaleString()}`;
+
+    // Compare new population with the last one and set the lights accordingly
+    if (newPopulation > station.initialPopulation) {
+      greenLight.classList.add("active");
+      redLight.classList.remove("active");
+    } else {
+      redLight.classList.add("active");
+      greenLight.classList.remove("active");
+    }
+
+    // Update the initial population for the next iteration
+    station.initialPopulation = newPopulation;
   }
 
   // Iterate through each station to create buttons and logic
@@ -138,15 +187,35 @@ document.addEventListener("DOMContentLoaded", () => {
     // Append the green light wrapper to the button (far right)
     button.appendChild(greenLightWrapper);
 
-    // Create weather display in the button (top-right corner)
+    // Create a container for the weather info and icon
+    const weatherContainer = document.createElement("div");
+    weatherContainer.className = "weather-container";
+
+    // Create weather display in the button (bottom-left corner)
     const weatherInfo = document.createElement("div");
     weatherInfo.className = "weather-info";
     weatherInfo.id = `weather${index}`;
     weatherInfo.innerText = "Loading..."; // Placeholder text until data is fetched
-    button.appendChild(weatherInfo);
+    weatherContainer.appendChild(weatherInfo);
+
+    // Create weather icon
+    const weatherIcon = document.createElement("img");
+    weatherIcon.className = "weather-icon";
+    weatherIcon.id = `weatherIcon${index}`;
+    weatherContainer.appendChild(weatherIcon);
+
+    // Append the weather container to the button
+    button.appendChild(weatherContainer);
 
     // Fetch and display weather data for each city, and adjust the button color
     fetchWeather(station.capital, index, button);
+
+    // Update the time every second
+    updateTime(index, station.timeZone);
+    setInterval(() => updateTime(index, station.timeZone), 1000);
+
+    // Update population every 10 seconds and handle the light changes
+    setInterval(() => updatePopulation(station, index), 10000);
 
     // Add sounds when clicking or hovering (using shared sounds)
     button.addEventListener("mouseenter", () => {
@@ -177,4 +246,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Append the button to the container
     buttonContainer.appendChild(button);
   });
+
+  // Event listener to close modals when clicking outside modal content
+  window.onclick = function (event) {
+    const openModals = document.querySelectorAll(".modal");
+    openModals.forEach((modal) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  };
 });

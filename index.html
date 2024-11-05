@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Fred Hobbs" />
-    <link rel="stylesheet" href="./pages/index.css" />
-
-
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="index" href="./pages/index.css" />
+    
     <title>Live Radio Stream Player with Population and Weather Data</title>
 
     <!-- Include Luxon library for time zone handling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.4/luxon.min.js"></script>
-</head>
+  </head>
 
-<body>
-    <h1>Live Radio Stream Player with Population and Weather Data</h1>
+  <body style="background-color: black;">
+    <h1 style="color: white; text-align: center;">Live Radio Stream Player with Population and Weather Data</h1>
 
-    <!-- Add buttons to activate and deactivate sounds -->
-    <div class="sound-controls">
-        <button id="activateSounds">Activate Sounds</button>
-        <button id="deactivateSounds" style="display: none;">Deactivate Sounds</button>
+    <!-- Add this button to activate sounds -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <button id="activateSounds">Activate Sounds</button>
     </div>
 
     <div class="button-container" id="buttonContainer"></div>
 
     <!-- Include the index.js script as a module -->
     <script type="module" src="./scripts/index.js" defer></script>
-</body>
+  </body>
 </html>

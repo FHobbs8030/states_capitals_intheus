@@ -1,8 +1,0 @@
-/* CSS for smaller weather icons */
-.weather-icon {
-  width: 20px; /* Set a smaller width for the icons */
-  height: 20px; /* Set a smaller height for the icons */
-  display: inline-block; /* Makes sure the icons stay inline with text */
-  vertical-align: middle; /* Aligns the icons nicely with surrounding text */
-  margin-right: 5px; /* Adds some spacing between the icon and text */
-}
