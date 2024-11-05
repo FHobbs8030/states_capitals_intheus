@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
   hoverSound.volume = 0.5;
   clickSound.volume = 0.5;
 
-  // Define the fetchWeather function
   function fetchWeather(city, index, button) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`;
 
@@ -50,49 +49,46 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         const weatherInfo = document.getElementById(`weather${index}`);
-        const weatherIcon = document.getElementById(`weatherIcon${index}`);
         const temp = data.main.temp.toFixed(1);
         const description = data.weather[0].description.toLowerCase();
         const iconCode = data.weather[0].icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
         // Update weather info in the button
-        weatherInfo.innerHTML = `Temp: ${temp}°F<br>${description}`;
-        weatherIcon.src = `http://openweathermap.org/img/wn/${iconCode}.png`;
-
-        // Adjust button background color based on weather conditions
-        if (
-          description.includes("thunderstorm") ||
-          description.includes("rain") ||
-          description.includes("snow")
-        ) {
-          button.style.filter = "brightness(50%)"; // Darken the button for bad weather
-        } else if (description.includes("clouds")) {
-          button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
-        } else if (temp < 32) {
-          button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
-        } else {
-          button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
-        }
+        weatherInfo.innerHTML = `
+                <div class="weather-content" style="display: flex; align-items: center; background-color: black; padding: 5px; border-radius: 5px;">
+                    <img src="${iconUrl}" alt="${description}" class="weather-icon" style="width: 30px; height: 30px; margin-right: 5px;">
+                    <div class="weather-text">
+                        Temp: ${temp}°F<br>${description}
+                    </div>
+                </div>
+            `;
       })
       .catch((error) => {
         console.error(`Failed to fetch weather data for ${city}:`, error);
       });
   }
 
-  // Function to update the time in each station button
+  // Function to update the time and date in each station button
   function updateTime(index, timeZone) {
     const date = new Date();
     const options = {
+      weekday: "short", // Display day of the week, e.g., 'Mon'
+      year: "numeric",
+      month: "short", // Display month as a short name, e.g., 'Jan'
+      day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
       timeZone: timeZone,
       timeZoneName: "short",
     };
-    const formattedTime = date.toLocaleTimeString("en-US", options);
+
+    const formattedTimeAndDate = date.toLocaleString("en-US", options);
     const dateTimeLabel = document.getElementById(`dateTime${index}`);
+
     if (dateTimeLabel) {
-      dateTimeLabel.innerText = formattedTime;
+      dateTimeLabel.innerText = formattedTimeAndDate;
     }
   }
 
@@ -187,25 +183,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Append the green light wrapper to the button (far right)
     button.appendChild(greenLightWrapper);
 
-    // Create a container for the weather info and icon
-    const weatherContainer = document.createElement("div");
-    weatherContainer.className = "weather-container";
-
-    // Create weather display in the button (bottom-left corner)
+    // Create weather display in the button (top-right corner)
     const weatherInfo = document.createElement("div");
     weatherInfo.className = "weather-info";
     weatherInfo.id = `weather${index}`;
     weatherInfo.innerText = "Loading..."; // Placeholder text until data is fetched
-    weatherContainer.appendChild(weatherInfo);
-
-    // Create weather icon
-    const weatherIcon = document.createElement("img");
-    weatherIcon.className = "weather-icon";
-    weatherIcon.id = `weatherIcon${index}`;
-    weatherContainer.appendChild(weatherIcon);
-
-    // Append the weather container to the button
-    button.appendChild(weatherContainer);
+    button.appendChild(weatherInfo);
 
     // Fetch and display weather data for each city, and adjust the button color
     fetchWeather(station.capital, index, button);

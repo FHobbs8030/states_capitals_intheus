@@ -7,114 +7,103 @@ body {
 
 /* Styling for header */
 h1 {
+  display: flex;
+  justify-content: center; /* Horizontally centers the title */
+  align-items: center; /* Vertically aligns if needed */
   font-size: 2em;
   margin-top: 20px;
 }
 
 /* Container for the buttons */
 .button-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 columns */
-    grid-template-rows: repeat(10, 1fr); /* 10 rows */
-    gap: 5px; /* Small gap between buttons */
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    padding: 20px;
-    box-sizing: border-box;
-    justify-items: stretch;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  grid-template-rows: repeat(10, 1fr); /* 10 rows */
+  gap: 5px; /* Small gap between buttons */
+  width: 100vw; /* Full viewport width */
+  /* height: 100vh; Full viewport height */
+  padding: 20px;
+  box-sizing: border-box;
+  justify-items: stretch;
+  align-items: stretch;
 }
 
-/* Station button styling */
-.station-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #222; /* Default color */
-    border: 3px solid transparent;
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    padding: 10px;
+.button-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 3px;
+  width: fit-content;
+  margin: 0 auto; /* Center the title */
 }
 
-/* Ensures button fills each grid cell completely */
+.button-time {
+  text-align: center;
+  margin-top: auto; /* Push to the top of the button content */
+  background-color: black;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 3px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.date-time {
+  position: absolute;
+  top: 25%;
+  right: 5px;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  z-index: 2;
+}
+
+.capital {
+  left: 10px;
+}
+
+.date-time {
+  right: 10px;
+}
+
 .station-button {
-    width: 100%;
-    height: 100%;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .station-button:hover {
   transform: scale(1.05);
 }
 
-/* Weather, Population, and Capital styling within button */
 .station-name {
-    background-color: black;
-    color: white;
-    padding: 5px;
-    font-size: 1.1em;
-    border-radius: 5px;
-}
-
-.weather-info {
-    margin-top: 5px;
-    background-color: black;
-    color: white;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 0.9em;
-    width: 90%; /* Make it wider */
-    align-self: center;
-    text-align: center;
-}
-
-.population {
-    background-color: black;
-    color: white;
-    padding: 5px;
-    font-size: 0.9em;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    align-self: center;
-}
-
-
-
-/* Styling for activate/deactivate sounds button */
-#activateSounds, #deactivateSounds {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-
-/* Capital information styling */
-.capital {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: black;
   color: white;
-  padding: 3px 5px;
-  font-size: 0.9em;
+  padding: 5px 8px;
+  font-size: 1.2em;
   border-radius: 3px;
-  z-index: 1;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .weather-container {
@@ -136,10 +125,70 @@ h1 {
   height: 40px; /* Make it shorter */
 }
 
+.weather-info {
+  position: absolute;
+  bottom: 45%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background-color: black;
+  color: white;
+  padding: 5px 8px;
+  font-size: 1em;
+  border-radius: 3px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .weather-icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
+  width: 60px; /* Set a reasonable width for the icon */
+  height: 60px; /* Set a reasonable height for the icon */
+  margin-left: 10px; /* Add some space between the text and the icon */
+  z-index: 2; /* Make sure the icon appears on top */
+}
+
+.population {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px 8px;
+  font-size: 1em;
+  border-radius: 3px; /* Optional: for a more polished look */
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-population {
+  text-align: center;
+  background-color: black;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin: 0 auto; /* Center it horizontally */
+}
+
+/* Styling for activate/deactivate sounds button */
+#activateSounds,
+#deactivateSounds {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .modal {
@@ -149,7 +198,6 @@ h1 {
   padding: 20px;
   color: white;
 }
-
 
 .modal-content {
   background-color: #333;
@@ -176,10 +224,15 @@ h1 {
   cursor: pointer;
 }
 
+/* Button to activate sounds */
+#activateSounds {
+  background-color: #4caf50;
+}
+
 /* Button to deactivate sounds */
 #deactivateSounds {
   background-color: #f44336;
-} 
+}
 
 /* Light containers */
 .light.red {
