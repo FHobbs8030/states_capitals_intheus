@@ -1,42 +1,36 @@
+// Import stations from external module
 import { stations } from "./stations.js";
-console.log(`Stations array loaded correctly`, stations); // Debugging step to verify if all stations are loaded
+console.log(`Stations array loaded correctly`, stations);
 
 document.addEventListener("DOMContentLoaded", () => {
   const API_KEY = "bc57c86f4780bd0a66fb3db181b3f031"; // Replace this with your actual OpenWeatherMap API key
   const buttonContainer = document.getElementById("buttonContainer");
   const activateSoundsButton = document.getElementById("activateSounds");
+  const deactivateSoundsButton = document.getElementById("deactivateSounds");
 
   let soundsActivated = false;
 
-  // Add click event listener to activate sounds button
+  // Activate sound button logic
   activateSoundsButton.addEventListener("click", () => {
     soundsActivated = true;
-
-    // Play each sound muted to get browser permission
-    const hoverSound = new Audio("audio/A.mp3");
-    const clickSound = new Audio("audio/B.mp3");
-
-    hoverSound.volume = 0;
-    clickSound.volume = 0;
-
-    hoverSound.play().catch((error) => {
-      console.log("Muted hover sound playback prevented:", error);
-    });
-
-    clickSound.play().catch((error) => {
-      console.log("Muted click sound playback prevented:", error);
-    });
-
-    // Hide the activation button after it's clicked
     activateSoundsButton.style.display = "none";
+    deactivateSoundsButton.style.display = "inline-block";
   });
 
-  // Create hover and click sound elements (shared across all buttons)
+  // Deactivate sound button logic
+  deactivateSoundsButton.addEventListener("click", () => {
+    soundsActivated = false;
+    deactivateSoundsButton.style.display = "none";
+    activateSoundsButton.style.display = "inline-block";
+  });
+
+  // Create hover and click sound elements
   const hoverSound = new Audio("audio/A.mp3");
   const clickSound = new Audio("audio/B.mp3");
   hoverSound.volume = 0.5;
   clickSound.volume = 0.5;
 
+  // Define the fetchWeather function
   function fetchWeather(city, index, button) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`;
 
@@ -52,74 +46,77 @@ document.addEventListener("DOMContentLoaded", () => {
         const temp = data.main.temp.toFixed(1);
         const description = data.weather[0].description.toLowerCase();
         const iconCode = data.weather[0].icon;
-        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
         // Update weather info in the button
         weatherInfo.innerHTML = `
-                <div class="weather-content" style="display: flex; align-items: center; background-color: black; padding: 5px; border-radius: 5px;">
-                    <img src="${iconUrl}" alt="${description}" class="weather-icon" style="width: 30px; height: 30px; margin-right: 5px;">
-                    <div class="weather-text">
-                        Temp: ${temp}°F<br>${description}
-                    </div>
-                </div>
-            `;
+          <div class="weather-container">
+            <img src="http://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather Icon" class="weather-icon" />
+            <div class="weather-text">Temp: ${temp}°F<br>${description}</div>
+          </div>
+        `;
+
+        // Adjust button background color based on weather conditions
+        if (
+          description.includes("thunderstorm") ||
+          description.includes("rain") ||
+          description.includes("snow")
+        ) {
+          button.style.filter = "brightness(50%)"; // Darken the button for bad weather
+        } else if (description.includes("clouds")) {
+          button.style.filter = "brightness(75%)"; // Slightly darken for cloudy weather
+        } else if (temp < 32) {
+          button.style.filter = "brightness(60%)"; // Darken for freezing temperatures
+        } else {
+          button.style.filter = "brightness(100%)"; // Reset to original brightness for clear weather
+        }
       })
       .catch((error) => {
         console.error(`Failed to fetch weather data for ${city}:`, error);
       });
   }
 
-  // Function to update the time and date in each station button
+  // Function to update the time in each station button
   function updateTime(index, timeZone) {
     const date = new Date();
     const options = {
-      weekday: "short", // Display day of the week, e.g., 'Mon'
-      year: "numeric",
-      month: "short", // Display month as a short name, e.g., 'Jan'
-      day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
       timeZone: timeZone,
       timeZoneName: "short",
     };
-
-    const formattedTimeAndDate = date.toLocaleString("en-US", options);
+    const formattedTime = date.toLocaleTimeString("en-US", options);
+    const formattedDate = date.toLocaleDateString("en-US", { timeZone });
     const dateTimeLabel = document.getElementById(`dateTime${index}`);
-
     if (dateTimeLabel) {
-      dateTimeLabel.innerText = formattedTimeAndDate;
+      dateTimeLabel.innerText = `${formattedDate} ${formattedTime}`;
     }
   }
 
   // Function to update population and toggle lights
   function updatePopulation(station, index) {
-    const populationLabel = document.querySelector(
-      `#dateTime${index} .population`
-    );
-    const redLight = document.querySelector(`#dateTime${index} .red`);
-    const greenLight = document.querySelector(`#dateTime${index} .green`);
+    const populationLabel = document.querySelector(`#population${index}`);
+    const redLights = document.querySelectorAll(`#red-light-${index}`);
+    const greenLights = document.querySelectorAll(`#green-light-${index}`);
 
-    if (!populationLabel || !redLight || !greenLight) {
+    if (!populationLabel || !redLights.length || !greenLights.length) {
       console.error("Unable to find elements for population update");
       return;
     }
 
-    // Update population logic (e.g., simulate population growth)
+    // Simulate population growth
     const newPopulation = Math.floor(
       station.initialPopulation * (1 + station.growthRate / 100)
     );
-
-    // Update the label with the new population
     populationLabel.innerText = `Population: ${newPopulation.toLocaleString()}`;
 
-    // Compare new population with the last one and set the lights accordingly
-    if (newPopulation > station.initialPopulation) {
-      greenLight.classList.add("active");
-      redLight.classList.remove("active");
+    // Toggle lights based on certain conditions (simulated alerts)
+    if (Math.random() > 0.5) {
+      redLights.forEach((light) => light.classList.add("active"));
+      greenLights.forEach((light) => light.classList.remove("active"));
     } else {
-      redLight.classList.add("active");
-      greenLight.classList.remove("active");
+      redLights.forEach((light) => light.classList.remove("active"));
+      greenLights.forEach((light) => light.classList.add("active"));
     }
 
     // Update the initial population for the next iteration
@@ -128,18 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Iterate through each station to create buttons and logic
   stations.forEach((station, index) => {
-    console.log(`Processing station: ${station.name}`); // Debug to see if all stations are processed
+    console.log(`Processing station: ${station.name}`);
 
     // Create button element for each state
     const button = document.createElement("button");
     button.className = "station-button";
     button.style.backgroundColor = station.color;
-
-    // Add state name (station name)
-    const stateName = document.createElement("div");
-    stateName.className = "station-name";
-    stateName.innerText = station.name;
-    button.appendChild(stateName);
 
     // Add capital name
     const capitalLabel = document.createElement("div");
@@ -153,44 +144,40 @@ document.addEventListener("DOMContentLoaded", () => {
     dateTimeLabel.id = `dateTime${index}`;
     button.appendChild(dateTimeLabel);
 
-    // Create a light container for the red light and population
-    const lightContainer = document.createElement("div");
-    lightContainer.className = "light-container";
+    // Add state name (station name)
+    const stateName = document.createElement("div");
+    stateName.className = "station-name";
+    stateName.innerText = station.name;
+    button.appendChild(stateName);
 
-    // Create the red light (left, near the population)
-    const redLight = document.createElement("div");
-    redLight.className = "light red";
-    lightContainer.appendChild(redLight);
-
-    // Add population display next to the red light
+    // Add population display
     const populationLabel = document.createElement("div");
     populationLabel.className = "population";
+    populationLabel.id = `population${index}`;
     populationLabel.innerText = `Population: ${station.initialPopulation.toLocaleString()}`;
-    lightContainer.appendChild(populationLabel);
+    button.appendChild(populationLabel);
 
-    // Append the light container with red light and population
-    button.appendChild(lightContainer);
-
-    // Create a green light wrapper to position it on the right
-    const greenLightWrapper = document.createElement("div");
-    greenLightWrapper.className = "green-light-wrapper";
-
-    // Create the green light (right, far right side of the button)
-    const greenLight = document.createElement("div");
-    greenLight.className = "light green";
-    greenLightWrapper.appendChild(greenLight);
-
-    // Append the green light wrapper to the button (far right)
-    button.appendChild(greenLightWrapper);
-
-    // Create weather display in the button (top-right corner)
+    // Create weather display in the button
     const weatherInfo = document.createElement("div");
     weatherInfo.className = "weather-info";
     weatherInfo.id = `weather${index}`;
-    weatherInfo.innerText = "Loading..."; // Placeholder text until data is fetched
+    weatherInfo.innerText = "Loading...";
     button.appendChild(weatherInfo);
 
-    // Fetch and display weather data for each city, and adjust the button color
+    // Add red and green lights
+    for (let i = 0; i < 5; i++) {
+      const redLight = document.createElement("div");
+      redLight.className = "light red";
+      redLight.id = `red-light-${index}-${i}`;
+      button.appendChild(redLight);
+
+      const greenLight = document.createElement("div");
+      greenLight.className = "light green";
+      greenLight.id = `green-light-${index}-${i}`;
+      button.appendChild(greenLight);
+    }
+
+    // Fetch and display weather data for each city
     fetchWeather(station.capital, index, button);
 
     // Update the time every second
@@ -203,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add sounds when clicking or hovering (using shared sounds)
     button.addEventListener("mouseenter", () => {
       if (soundsActivated) {
-        hoverSound.currentTime = 0; // Reset to the beginning
+        hoverSound.currentTime = 0;
         hoverSound.play().catch((error) => {
           console.log("Hover sound autoplay prevented:", error);
         });
@@ -212,14 +199,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     button.addEventListener("mouseleave", () => {
       if (soundsActivated && !hoverSound.paused) {
-        hoverSound.pause(); // Stop playing
-        hoverSound.currentTime = 0; // Reset for next hover
+        hoverSound.pause();
+        hoverSound.currentTime = 0;
       }
     });
 
     button.addEventListener("click", () => {
       if (soundsActivated) {
-        clickSound.currentTime = 0; // Reset to the beginning
+        clickSound.currentTime = 0;
         clickSound.play().catch((error) => {
           console.log("Click sound autoplay prevented:", error);
         });
@@ -229,14 +216,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // Append the button to the container
     buttonContainer.appendChild(button);
   });
-
-  // Event listener to close modals when clicking outside modal content
-  window.onclick = function (event) {
-    const openModals = document.querySelectorAll(".modal");
-    openModals.forEach((modal) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  };
 });

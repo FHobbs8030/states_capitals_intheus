@@ -14,18 +14,17 @@ h1 {
   margin-top: 20px;
 }
 
-/* Container for the buttons */
 .button-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns */
-  grid-template-rows: repeat(10, 1fr); /* 10 rows */
-  gap: 5px; /* Small gap between buttons */
-  width: 100vw; /* Full viewport width */
-  /* height: 100vh; Full viewport height */
-  padding: 20px;
-  box-sizing: border-box;
-  justify-items: stretch;
-  align-items: stretch;
+  grid-template-columns: repeat(
+    5,
+    250px
+  ); /* 5 columns with fixed button width */
+  grid-auto-rows: 250px; /* Fixed button height */
+  gap: 5px; /* Reduce this value to make the gap smaller */
+  justify-content: center; /* Centers the entire grid in the page */
+  align-items: center; /* Centers the buttons vertically */
+  padding: 20px; /* Add padding to create a margin around the container */
 }
 
 .button-title {
@@ -54,7 +53,7 @@ h1 {
 .date-time {
   position: absolute;
   top: 25%;
-  right: 5px;
+  right: 15%;
   background-color: black;
   color: white;
   padding: 5px 10px;
@@ -64,11 +63,9 @@ h1 {
 }
 
 .capital {
+  background-color: black;
+  color: white;
   left: 10px;
-}
-
-.date-time {
-  right: 10px;
 }
 
 .station-button {
@@ -79,7 +76,6 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   border: 2px solid black;
   border-radius: 10px;
   box-sizing: border-box;
@@ -127,7 +123,7 @@ h1 {
 
 .weather-info {
   position: absolute;
-  bottom: 45%;
+  bottom: 20%;
   left: 50%;
   transform: translate(-50%, 50%);
   background-color: black;
@@ -144,7 +140,9 @@ h1 {
 .weather-icon {
   width: 60px; /* Set a reasonable width for the icon */
   height: 60px; /* Set a reasonable height for the icon */
-  margin-left: 10px; /* Add some space between the text and the icon */
+  margin-top: -130px; /* Move the icon up to overlap with the text */
+  margin-left: 200px;
+  margin-bottom: 70px; /* Add some space between the text and the icon */
   z-index: 2; /* Make sure the icon appears on top */
 }
 
@@ -173,22 +171,6 @@ h1 {
   margin-top: 5px;
   margin-bottom: 5px;
   margin: 0 auto; /* Center it horizontally */
-}
-
-/* Styling for activate/deactivate sounds button */
-#activateSounds,
-#deactivateSounds {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
 .modal {
@@ -227,18 +209,36 @@ h1 {
 /* Button to activate sounds */
 #activateSounds {
   background-color: #4caf50;
+  border: none;
+  color: rgb(15, 14, 14);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 /* Button to deactivate sounds */
 #deactivateSounds {
-  background-color: #f44336;
+  background-color: #cc2216;
+  border: none;
+  color: rgb(15, 14, 14);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 /* Light containers */
 .light.red {
   position: absolute;
-  bottom: 20px;
-  left: 30px;
+  bottom: 70%;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -247,7 +247,7 @@ h1 {
 }
 
 .light.active.red {
-  background-color: red;
+  background-color: rgb(224, 17, 17);
 }
 
 .green-light-wrapper {
@@ -257,15 +257,18 @@ h1 {
 }
 
 .light.green {
+  position: relative;
   width: 15px;
   height: 15px;
+  left: 90%;
   border-radius: 50%;
   background-color: gray;
   transition: background-color 0.5s;
+  z-index: 1000;
 }
 
 .light.active.green {
-  background-color: green;
+  background-color: rgb(59, 219, 10);
 }
 
 /* Audio hover and click styles */
